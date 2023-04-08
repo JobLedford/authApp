@@ -8,7 +8,11 @@ const bodyParser = require('body-parser');
 const expressSession = require('express-session')({
     secret: 'secret',
     resave: false,
-    saveUninitialized: false
+    saveUninitialized: true,
+    cookie: {
+        securre: false,
+        maxAge: 60000
+    }
 });
 
 app.use(bodyParser.json());
@@ -95,13 +99,6 @@ app.get('/user',
     (req,res) => res.send({ user: req.user })
 );
 
-/*app.get('/logout', 
-    (req,res) => {
-        req.logout(),
-        res.sendFile('html/logout.html',
-        { root: __dirname }
-    )
-});*/
 app.get("/logout",
 (req, res) => {
   req.logout(),
